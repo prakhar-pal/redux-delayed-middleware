@@ -1,0 +1,21 @@
+{
+  "name": "redux-delay-scratch",
+  "version": "0.0.1",
+  "description": "Checking feasability for redux-delay",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "redux": "4.0.5"
+  },
+  "devDependencies": {
+    "@babel/core": "7.2.0",
+    "parcel-bundler": "^1.6.1"
+  },
+  "keywords": [
+    "javascript",
+    "starter"
+  ]
+}

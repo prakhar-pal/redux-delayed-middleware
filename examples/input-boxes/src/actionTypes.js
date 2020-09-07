@@ -1,0 +1,2 @@
+export const UPDATE_NAME = 'UPDATE_NAME';
+export const INCREASE_COUNTER = 'INCREASE_COUNTER';
