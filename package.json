@@ -1,6 +1,6 @@
 {
   "name": "redux-delayed-middleware",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A [redux](https://redux.js.org) middleware to dispatch delayed actions",
   "main": "build/index.js",
   "scripts": {
@@ -10,7 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/lawki/redux-delayed.git"
   },
-  "keywords": ["redux", "delayed", "middleware", "javascript", "react"],
+  "keywords": [
+    "redux",
+    "delayed",
+    "middleware",
+    "javascript",
+    "react"
+  ],
   "author": "Prakhar Pal",
   "license": "MIT",
   "bugs": {
