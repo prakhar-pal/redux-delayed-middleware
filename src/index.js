@@ -3,36 +3,39 @@
 /**
  *
  * @param {Object} middlewareObj - the root object which should have config and might have optional params e.g. dispatchInterval
- * @param {Object} middlewareObj.config - config used to calculated initial state & subsequent states
- * @param {Function} middlewareObj.config.reducer - should be a reducer function which should give valid initial state
- * @param {Function} middlewareObj.config.type - an action type e.g. if current action is ACTION then ACTION_DELAYED will 
+ * @param {Object} middlewareObj.reducers - config used to calculated initial state & subsequent states
+ * @param {Function} middlewareObj.reducers.reducer - should be a reducer function which should give valid initial state
+ * @param {Function} middlewareObj.reducers.id - it can be any valid action type, this action type will be used when dispatching delayed action with updated payload 
  * be dispatched after given time interval
  * @param {Number} middlewareObj.dispatchInterval - (Defaul=500ms) time after which the delayed action should be dispatched
  */
-export default function createDelayMiddleware({ config, dispatchInterval = 500 }) {
+export default function createDelayMiddleware({ reducers, dispatchInterval = 500 }) {
     let timeoutId = null;
-    let currentState = config.reduce((out, obj)=> ({
+    let currentState = reducers.reduce((out, action)=> ({
         ...out,
-        [obj.type]: {
-            value: obj.reducer(),
-            reducer: obj.reducer
+        [action.id]: {
+            ...action,
+            value: action.reducer(),
         }
     }), {});
+
     const delayMiddleWare = ({ dispatch }) => next => action => {
-        const currentValue = currentState[action.type];
+        const actionId = action.id;
+        const currentValue = actionId && currentState[actionId];
         if(currentValue){
+            const updatedValue = currentValue.reducer(currentValue.value, action);
             currentState = {
                 ...currentState,
-                [action.type]: {
+                [actionId]: {
                     ...currentValue,
-                    value: currentState[action.type].reducer(currentState[action.type].value, action)
+                    value: updatedValue
                 }
             }
             if(timeoutId) clearTimeout(timeoutId);
             timeoutId = setTimeout(() => {
                 dispatch({
-                    type: `${action.type}_DELAYED`,
-                    payload: currentState[action.type].value
+                    type: actionId,
+                    payload: updatedValue
                 });
             }, dispatchInterval);
         }
@@ -40,3 +43,4 @@ export default function createDelayMiddleware({ config, dispatchInterval = 500 }
     } 
     return delayMiddleWare; 
 }
+
