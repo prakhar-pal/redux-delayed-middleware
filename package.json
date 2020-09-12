@@ -1,6 +1,6 @@
 {
   "name": "redux-delayed-middleware",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A [redux](https://redux.js.org) middleware to dispatch delayed actions",
   "main": "build/index.js",
   "scripts": {
