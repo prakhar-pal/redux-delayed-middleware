@@ -10,9 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/lawki/redux-delayed.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["redux", "delayed", "middleware", "javascript", "react"],
+  "author": "Prakhar Pal",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/lawki/redux-delayed/issues"
   },
