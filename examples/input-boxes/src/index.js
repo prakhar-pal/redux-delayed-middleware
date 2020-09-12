@@ -1,15 +1,23 @@
 import nameChangeHandler from './nameChangeHandler';
 import "./styles.css";
-import { UPDATE_NAME } from "./actionTypes";
+import { UPDATE_NAME, UPDATED_COUNTER, DECREASE_COUNTER, INCREASE_COUNTER } from "./actionTypes";
 import store from './store/store';
 
 window.increaseCount = () => store.dispatch({
-    type: 'INCREASE',
+    type: INCREASE_COUNTER,
+    id: UPDATED_COUNTER,
     payload: 1
 });
 
+window.decreaseCount = () => store.dispatch({
+    type: DECREASE_COUNTER,
+    id: UPDATED_COUNTER,
+    payload: 1
+});
+
+
 const el = document.createElement('div');
-el.innerHTML = 'Click the button to see the delayed changes';
+el.innerHTML = store.getState().counter;
 el.style.paddingTop = '3rem';
 document.body.append(el);
 
