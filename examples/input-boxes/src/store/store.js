@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import createDelayMiddleware from "../../../../src/index";
+import { createDelayMiddleware } from "../../../../src/index";
 import increaseReducer from "./reducers/delayedReducers/increaseReducer";
 import rootReducer from "./reducers/rootReducer";
 import { UPDATED_COUNTER } from "../actionTypes";
