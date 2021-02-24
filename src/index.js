@@ -1,19 +1,19 @@
 /**Author: Prakhar Pal */
 
 const delayMiddleware = ({ dispatch }) => next => action => {
-    if(action.accumulate){
-        action.accumulate = false;
+    if (typeof action === typeof Object() && action.shouldDelay) {
+        action.shouldDelay = false;
         // delay the dispatching of this action until main thread becomes free
         setTimeout(() => {
             dispatch(action);
-        }, 0);
+        }, action.delayBy || 0);
         next({ type: "@redux-delayed-middleware", payload: action });
-    }else {
+    } else {
         next(action);
     }
 }
 
-export default delayMiddleware; 
+export default delayMiddleware;
 
 
 /**
@@ -27,36 +27,26 @@ export default delayMiddleware;
  */
 export function createDelayMiddleware({ reducers, dispatchInterval = 500 }) {
     let timeoutId = null;
-    let currentState = reducers.reduce((out, reducerDetails)=> ({ //calculates the initial state
-        ...out,
-        [reducerDetails.id]: {
-            ...reducerDetails,
-            value: reducerDetails.reducer(),
-        }
-    }), {});
+    let currentState = reducers.map(reducerDetails => ({
+        ...reducerDetails,
+        value: reducerDetails.reducer()
+    }));
 
     const delayMiddleWare = ({ dispatch }) => next => action => {
-        const actionId = action.id;
-        const currentValue = actionId && currentState[actionId];
-        if(currentValue){
-            const updatedValue = currentValue.reducer(currentValue.value, action);
-            currentState = {
-                ...currentState,
-                [actionId]: {
-                    ...currentValue,
-                    value: updatedValue
-                }
-            }
-            if(timeoutId) clearTimeout(timeoutId);
+        if (typeof action.id === typeof String()) {
+            currentState = currentState.map(stateDetails => ({ ...stateDetails, value: stateDetails.reducer(stateDetails.value, action) }));
+            if (timeoutId) clearTimeout(timeoutId);
             timeoutId = setTimeout(() => {
-                dispatch({
-                    type: actionId,
-                    payload: updatedValue
-                });
+                currentState.forEach(stateDetails => {
+                    dispatch({
+                        type: stateDetails.id,
+                        payload: stateDetails.value
+                    });
+                })
             }, dispatchInterval);
         }
         next(action);
-    } 
-    return delayMiddleWare; 
+    }
+    return delayMiddleWare;
 }
 
