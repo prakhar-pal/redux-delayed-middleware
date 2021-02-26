@@ -1,4 +1,7 @@
-/**Author: Prakhar Pal */
+/**
+ * Author: Prakhar Pal 
+ * License: MIT
+ * */
 
 const delayMiddleware = ({ dispatch }) => next => action => {
     if (typeof action === typeof Object() && action.shouldDelay) {
@@ -33,13 +36,13 @@ export function createDelayMiddleware({ reducers, dispatchInterval = 500 }) {
     }));
 
     const delayMiddleWare = ({ dispatch }) => next => action => {
-        if (typeof action.id === typeof String()) {
+        if (typeof action === typeof Object() && action.shouldDelay) {
             currentState = currentState.map(stateDetails => ({ ...stateDetails, value: stateDetails.reducer(stateDetails.value, action) }));
             if (timeoutId) clearTimeout(timeoutId);
             timeoutId = setTimeout(() => {
                 currentState.forEach(stateDetails => {
                     dispatch({
-                        type: stateDetails.id,
+                        type: stateDetails.type,
                         payload: stateDetails.value
                     });
                 })

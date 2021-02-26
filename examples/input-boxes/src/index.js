@@ -14,14 +14,12 @@ const reduxLogsElement = document.getElementById("redux_logs");
 
 increaseCounterBtn.onclick = () => store.dispatch({
     type: INCREASE_COUNTER,
-    id: UPDATED_COUNTER,
     shouldDelay: true,
     payload: 1
 });
 
 decreaseCounterBtn.onclick = () => store.dispatch({
     type: DECREASE_COUNTER,
-    id: UPDATED_COUNTER,
     shouldDelay: true,
     payload: 1
 });
@@ -63,7 +61,6 @@ store.subscribe(() => {
 });
 
 store.subscribe(() => {
-    // console.log('store is:',store);
     const reduxActions = store.getState().reduxActions;
     const countByActionType = Object.keys(reduxActions).map(key => ({
         action: key,

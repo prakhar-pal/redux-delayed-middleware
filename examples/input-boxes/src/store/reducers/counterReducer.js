@@ -7,8 +7,6 @@ export default function counterReducer(state=initialState, action){
             return state + 1;
         case DECREASE_COUNTER:
             return state - 1;
-        case UPDATED_COUNTER:
-            return action.payload;
         default: return state;
     }
 }

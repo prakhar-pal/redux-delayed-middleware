@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "start:accumulate":"DEFAULT_MIDDLEWARE=1 npm start",
+    "start:accumulate":"NAMED_MIDDLEWARE=1 npm start",
     "build": "parcel build index.html"
   },
   "dependencies": {
