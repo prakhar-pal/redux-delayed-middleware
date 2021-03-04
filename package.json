@@ -1,6 +1,6 @@
 {
   "name": "redux-delayed-middleware",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Redux middleware to delay selected actions (i.e. no throttle or keeping latest actions)",
   "main": "build/index.js",
   "scripts": {
