@@ -7,12 +7,11 @@ const delayMiddleware = ({ dispatch }) => next => action => {
     if (typeof action === typeof Object() && action.shouldDelay) {
         action.shouldDelay = false;
         // delay the dispatching of this action until main thread becomes free
-        setTimeout(() => {
+        return setTimeout(() => {
             dispatch(action);
         }, action.delayBy || 0);
-        next({ type: "@redux-delayed-middleware", payload: action });
     } else {
-        next(action);
+        return next(action);
     }
 }
 
