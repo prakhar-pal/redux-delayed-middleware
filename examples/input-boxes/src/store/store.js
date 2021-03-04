@@ -1,14 +1,14 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import { createDelayMiddleware } from "../../../../src/index";
-import increaseReducer from "./reducers/delayedReducers/increaseReducer";
+import delayedMiddlewareDefault , { createDelayMiddleware } from "../../../../src/index";
+import counterReducer from "./reducers/counterReducer";
 import rootReducer from "./reducers/rootReducer";
 import { UPDATED_COUNTER } from "../actionTypes";
 
-const delayedMiddleware = createDelayMiddleware({
+const delayedMiddleware2 = createDelayMiddleware({
     reducers: [
         {
-            id: UPDATED_COUNTER,
-            reducer: increaseReducer
+            type: UPDATED_COUNTER,
+            reducer: counterReducer
         }
     ]
 });
@@ -18,7 +18,10 @@ const loggerMiddleware = () => (next) => (action) => {
     next(action);
 };
 
-const middleware = [loggerMiddleware, delayedMiddleware];
+console.log('default middleware:', process.env.NAMED_MIDDLEWARE);
+
+const finalDelayMiddleware = process.env.NAMED_MIDDLEWARE ? delayedMiddleware2: delayedMiddlewareDefault;
+const middleware = [loggerMiddleware, finalDelayMiddleware];
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancer(applyMiddleware(...middleware)));
 

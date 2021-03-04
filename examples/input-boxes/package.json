@@ -1,10 +1,11 @@
 {
-  "name": "redux-delay-scratch",
+  "name": "redux-delay-input-box-example",
   "version": "0.0.1",
-  "description": "Checking feasability for redux-delay",
+  "description": "Example for input box",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html --open",
+    "start": "parcel index.html",
+    "start:accumulate":"NAMED_MIDDLEWARE=1 npm start",
     "build": "parcel build index.html"
   },
   "dependencies": {
