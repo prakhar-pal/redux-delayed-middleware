@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
+    "lint": "eslint src/**/*.js",
     "prepublishOnly": "npm run build"
   },
   "repository": {
