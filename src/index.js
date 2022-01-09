@@ -5,6 +5,13 @@
  *
  */
 
+/**
+ * @method delayMiddleware
+ * @param {Object} store - store
+ * @param {Function} store.dispatch - store's dispatch function
+ * @returns {Object} - returned by next function
+ */
+
 const delayMiddleware = ({ dispatch }) => (next) => (action) => {
   if (typeof action === typeof Object() && action.shouldDelay) {
     const newAction = { ...action, shouldDelay: false };
@@ -19,7 +26,7 @@ const delayMiddleware = ({ dispatch }) => (next) => (action) => {
 export default delayMiddleware;
 
 /**
- *
+ * @method createDelayMiddleware
  * @param {Object} middlewareObj - the root object which should have reducers config and may have optional params
  * @param {Object} middlewareObj.reducers - config used to calculated initial state & subsequent states
  * @param {Function} middlewareObj.reducers.reducer - a reducer function
