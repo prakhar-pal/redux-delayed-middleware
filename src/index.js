@@ -1,6 +1,5 @@
 /*
- *
- * Author: Prakhar Pal
+ * @author Prakhar Pal
  * License: MIT
  *
  */
