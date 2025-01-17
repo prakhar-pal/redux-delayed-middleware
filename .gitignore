@@ -105,3 +105,6 @@ dist
 
 # middleware build
 build
+
+# Docs destination
+docs
