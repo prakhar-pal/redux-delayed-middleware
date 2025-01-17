@@ -2,6 +2,7 @@
 
 A [redux](https://redux.js.org) middleware to dispatch delayed actions
 
+Note: built using node v14
 ### What it can do -
 
 - Delay redux actions until "main thread becomes free",
