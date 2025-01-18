@@ -6,55 +6,56 @@ import { bindActionCreators } from "redux";
 import { updateName } from "../utils";
 import { getPeople, updatePeople } from "../store/actions/peopleActions";
 
-const columns = [
-  {
-    Header: "Name",
-    Cell: (row) => {
-      const { updatingIndex } = this.state;
-      const { id, name } = row.original;
-      return <div>{updatingIndex[id] ? "..." : name}</div>;
-    },
-  },
-  {
-    Header: "Age",
-    accessor: "age",
-  },
-  {
-    Header: "Gender",
-    accessor: "sex",
-  },
-  {
-    Header: "Degree",
-    accessor: "degree",
-  },
-  {
-    Header: "Weather",
-    accessor: "weather",
-  },
-  {
-    Header: "Friend",
-    accessor: "friend",
-  },
-  {
-    Header: "",
-    Cell: ({ original }) => {
-      const { updatingIndex } = this.state;
-      const { id } = original;
-      return updatingIndex[id] ? (
-        <span className="btn btn-danger w-100"></span>
-      ) : (
-        "x"
-      );
-    },
-  },
-];
 class PeopleList extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       updatingIndex: {},
     };
-    this.columns = columns;
+    const that = this;
+    this.updateAll = this.updateAll.bind(this);
+    this.columns = [
+      {
+        Header: "Name",
+        Cell: (row) => {
+          const { updatingIndex } = that.state;
+          const { id, name } = row.original;
+          return <div>{updatingIndex[id] ? "..." : name}</div>;
+        },
+      },
+      {
+        Header: "Age",
+        accessor: "age",
+      },
+      {
+        Header: "Gender",
+        accessor: "sex",
+      },
+      {
+        Header: "Degree",
+        accessor: "degree",
+      },
+      {
+        Header: "Weather",
+        accessor: "weather",
+      },
+      {
+        Header: "Friend",
+        accessor: "friend",
+      },
+      {
+        Header: "",
+        Cell: ({ original }) => {
+          const { updatingIndex } = that.state;
+          const { id } = original;
+          return updatingIndex[id] ? (
+            <span className="btn btn-danger w-100"></span>
+          ) : (
+            "x"
+          );
+        },
+      },
+    ];
   }
 
   componentDidMount() {
